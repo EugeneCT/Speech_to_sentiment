@@ -3,7 +3,7 @@ from st_audiorec import st_audiorec
 import json
 import requests
 
-API_TOKEN=st.secrets(["HF_API"])
+API_TOKEN=st.secrets["HF_API"]
 
 st.title("Speech to Sentiment app")
 API_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v2"
