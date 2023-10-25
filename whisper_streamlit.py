@@ -40,6 +40,7 @@ if wav_audio_data is not None:
         sentiment=sentiment.json()
         try:
             positive_score,negative_score=get_sentiment_from_return(sentiment)
+            return_value=True
         except:
             return_value=False
     st.subheader("Sentiment")
