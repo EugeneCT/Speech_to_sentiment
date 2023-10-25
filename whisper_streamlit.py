@@ -3,7 +3,7 @@ from st_audiorec import st_audiorec
 import json
 import requests
 
-API_TOKEN=st.secrets["HF_API"]
+API_TOKEN=st.secrets["HF_API"]  
 
 st.title("Speech to Sentiment app")
 API_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v2"
@@ -38,15 +38,19 @@ if wav_audio_data is not None:
         # st.write(output_for_sa)
         sentiment = requests.post(API_URL_SA, headers=headers, json=output_for_sa)
         sentiment=sentiment.json()
-        positive_score,negative_score=get_sentiment_from_return(sentiment)
-
+        try:
+            positive_score,negative_score=get_sentiment_from_return(sentiment)
+        except:
+            return_value=False
     st.subheader("Sentiment")
     if sentiment is not None:
         # st.write("Sentiment Positive Score : {sentiment}")
         # st.write(sentiment)
-
-        st.write("Positive Sentiment Score :blush: :" + str(positive_score))
-        st.write("Negative Sentiment Score :unamused: :" + str(negative_score))
+        if return_value==False:
+            st.write("No sentiment detected")
+        else:
+            st.write("Positive Sentiment Score :blush: :" + str(positive_score))
+            st.write("Negative Sentiment Score :unamused: :" + str(negative_score))
 
 # st.write(wav_audio_data)
 # if wav_audio_data is not None:
